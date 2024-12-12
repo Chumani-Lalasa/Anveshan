@@ -46,6 +46,26 @@ DiseaseRoute.get('/diseases/:id', async (req, res) => {
     }
 });
 
+DiseaseRoute.put('/update/:id', async (req, res) => {
+    try{
+        const {id} = req.params;
+        const updateData = req.body;
+
+        // Find and update the disease
+        const updatedDisease = await DiseaseModel.findByIdAndUpdate(
+            id,
+            updateData,
+            {new: true, runValidators: true} // Ensure the updated document is returned and validation is applied
+        );
+
+        if(!updatedDisease){
+            return res.status(404).json({error: 'Disease not found'})
+        }
+        res.status(200).json({msg: 'Disease updated successfully', disease: updatedDisease});
+    }catch(err){
+        res.status(500).json({error: 'Failed to update disease', details: err.message})
+    }
+})
 
 
 module.exports = DiseaseRoute;

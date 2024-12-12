@@ -63,4 +63,29 @@ PreventionRoute.get('/read/:disease', async (req, res) => {
     }
 })
 
+// Update preventions and precautions for a disease
+PreventionRoute.put('/update/:id', async (req, res) => {
+    try{
+        const {id} = req.params;
+        const {preventions, precautions} = req.body;
+
+        if(!Array.isArray(preventions) || !Array.isArray(precautions)){
+            return res.status(400).json({error: "Invalid input data. 'preventions' and 'precautions' must be arrays."});
+        }
+
+        const updatedDisease = await Disease.findByIdAndUpdate(
+            id,
+            {preventions, precautions},
+            {new: true, runValidators: true}
+        );
+
+        if(!updatedDisease){
+            return res.status(404).json({error: 'Disease not found'});
+        }
+        res.status(200).json({msg: 'Preventions and precautions updated successfully', disease: updatedDisease})
+    }catch(err){
+        res.status(500).json({error: 'Failed to update preventions and precautions', details: err.message});
+    }
+})
+
 module.exports = PreventionRoute;

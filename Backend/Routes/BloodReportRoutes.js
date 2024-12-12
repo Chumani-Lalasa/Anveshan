@@ -41,5 +41,24 @@ BloodReportRoute.get('/read/:id', async (req, res) => {
     }
 })
 
+BloodReportRoute.put('/update/:id', async (req, res) => {
+    try{
+        const {id} = req.params;
+        const updateData = req.body;
+
+        updateReport = await BloodReportModel.findByIdAndUpdate(
+            id, 
+            updateData,
+            {new: true, runValidators: true} // Ensure the updated document is returned and validation is applied
+        );
+        if(!updateReport){
+            return res.status(404).json({error: 'Blood report not found'});
+        }
+        res.status(200).json({msg: 'Blood report updated successfully', report: updateReport})
+    }catch(err){
+        res.status(500).json({error: 'Failed to update blood report', details: err.message});
+    }
+})
+
 module.exports = BloodReportRoute;
 

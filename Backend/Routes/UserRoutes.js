@@ -61,4 +61,25 @@ UserRoute.get('/users/:id/analysis-summary', async (req, res) => {
     }
 });
 
+UserRoute.put('/update/:id', async (req, res) => {
+    try{
+        const {name, email, password} = req.body;
+
+        const user = await User.findById(req.params.id);
+        if(!user){
+            return res.status(404).json({error: 'User not found'});
+        }
+
+        // update user fields if provided in the request body
+        if(name) user.name = name;
+        if(email) user.email = email;
+        if(password) user.password = password;
+
+        await user.save();
+        res.status(200).json({msg: 'User updated successfully', user});
+    }catch(err){
+        res.status(500).json({error: 'Failed to update user', details: err.message});
+    }
+})
+
 module.exports = UserRoute;
