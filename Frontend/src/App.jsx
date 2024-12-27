@@ -1,28 +1,14 @@
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+import { ClerkProvider, SignedIn, SignedOut, SignIn, SignUp, UserButton } from "@clerk/clerk-react";
 import "./App.css";
 import Home from "./Components/Home";
-// import {
-//   Navbar,
-//   MobileNav,
-//   Typography,
-//   Button,
-//   IconButton,
-//   Card,
-//   Accordion,
-//   AccordionHeader,
-//   AccordionBody,
-// } from "@material-tailwind/react";
-// import { useEffect, useState } from "react";
-
-// const CUSTOM_ANIMATION = {
-//   mount: { opacity: 1 },
-//   unmount: { opacity: 0 },
-// };
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import LoginPage from "./Components/LoginPage";
 
 function App() {
   return (
     <>
-      <Home />
+      {/* <Home /> */}
+      <LoginPage />
     </>
   );
 }
