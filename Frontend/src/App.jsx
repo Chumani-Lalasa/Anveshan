@@ -1,18 +1,18 @@
-import { ClerkProvider, SignedIn, SignedOut, SignIn, SignUp, UserButton } from "@clerk/clerk-react";
 import "./App.css";
-import Home from "./Components/Home";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import LoginPage from "./Components/LoginPage";
-import Register from "./Components/Register";
+import {BrowserRouter as Router} from 'react-router-dom';
+import ComponentRoutes from "./Components/Routes/ComponentRoutes";
 
 function App() {
   return (
     <>
       {/* <Home /> */}
       {/* <LoginPage /> */}
-      <div className="bg">
+      {/* <div className="bg">
       <Register />
-      </div>
+      </div> */}
+      <Router>
+        <ComponentRoutes />
+      </Router>
     </>
   );
 }
